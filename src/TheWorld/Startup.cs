@@ -7,15 +7,34 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TheWorld.Services;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace TheWorld
 {
     public class Startup
     {
+        private IHostingEnvironment _ent;
+        private IConfigurationRoot _config;
+
+        public Startup(IHostingEnvironment env)
+        {
+            _ent = env;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(_ent.ContentRootPath)
+                .AddJsonFile("config.json");
+            _config = builder.Build();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(_config);
+            if(_ent.IsEnvironment("Development") || _ent.IsEnvironment("Testing"))
+            services.AddScoped<IMailService, DebugMailService>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -28,9 +47,17 @@ namespace TheWorld
                 app.UseDeveloperExceptionPage();
                // app.UseStatusCodePages();
             }
-            app.UseDefaultFiles();
+             //    app.UseDefaultFiles();
 
             app.UseStaticFiles();
+            app.UseMvc(config =>
+            {
+                config.MapRoute(
+                    name: "Default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "App", action = "Index" }
+                    );
+            });
         }
     }
 }
