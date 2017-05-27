@@ -1,5 +1,8 @@
 {
   "MailSettings": {
     "ToAddress": "tomgeo19@gmail.com"
+  },
+  "ConnectionStrings": {
+    "WorldContextConnection": "Server=(localdb)\\v11.0;Database=TheWorldDb;Trusted_Connection=true;MultipleActiveResultSets=true;"
   }
 }

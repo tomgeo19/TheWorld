@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using TheWorld.ViewModels;
 using TheWorld.Services;
 using Microsoft.Extensions.Configuration;
+using TheWorld.Models;
 
 namespace TheWorld.Controllers.Web
 {
@@ -14,16 +15,19 @@ namespace TheWorld.Controllers.Web
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
+        private WorldContext _context;
 
-        public AppController(IMailService mailService,IConfigurationRoot config)
+        public AppController(IMailService mailService,IConfigurationRoot config, WorldContext worldContext)
         {
             _mailService = mailService;
             _config = config;
+            _context = worldContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var data = _context.Trips.ToList();
+            return View(data);
         }
 
         public IActionResult Contact()
@@ -39,7 +43,7 @@ namespace TheWorld.Controllers.Web
         [HttpPost]
         public IActionResult Contact(ContactViewModel model)
         {
-            if(model.Email.Contains("aol.com"))
+            if(model.Email!=null && model.Email.Contains("aol.com"))
             {
                 ModelState.AddModelError("Email", "No support for AOL");
             }

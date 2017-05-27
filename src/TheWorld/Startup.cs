@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using TheWorld.Services;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Configuration;
+using TheWorld.Models;
 
 namespace TheWorld
 {
@@ -34,6 +35,8 @@ namespace TheWorld
             services.AddSingleton(_config);
             if(_ent.IsEnvironment("Development") || _ent.IsEnvironment("Testing"))
             services.AddScoped<IMailService, DebugMailService>();
+
+            services.AddDbContext<WorldContext>();
             services.AddMvc();
         }
 
