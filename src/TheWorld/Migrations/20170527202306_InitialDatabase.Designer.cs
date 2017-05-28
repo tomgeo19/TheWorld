@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using TheWorld.Models;
 
-namespace theworld.Migrations
+namespace TheWorld.Migrations
 {
     [DbContext(typeof(WorldContext))]
-    [Migration("20170527070107_InitialDatabase")]
+    [Migration("20170527202306_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace theworld.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("Stop");
+                    b.ToTable("Stops");
                 });
 
             modelBuilder.Entity("TheWorld.Models.Trip", b =>
@@ -54,7 +54,7 @@ namespace theworld.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trip");
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("TheWorld.Models.Stop", b =>

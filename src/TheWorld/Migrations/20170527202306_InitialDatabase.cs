@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace theworld.Migrations
+namespace TheWorld.Migrations
 {
     public partial class InitialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Trip",
+                name: "Trips",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -21,11 +21,11 @@ namespace theworld.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trip", x => x.Id);
+                    table.PrimaryKey("PK_Trips", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stop",
+                name: "Stops",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -39,28 +39,28 @@ namespace theworld.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stop", x => x.Id);
+                    table.PrimaryKey("PK_Stops", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Stop_Trip_TripId",
+                        name: "FK_Stops_Trips_TripId",
                         column: x => x.TripId,
-                        principalTable: "Trip",
+                        principalTable: "Trips",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stop_TripId",
-                table: "Stop",
+                name: "IX_Stops_TripId",
+                table: "Stops",
                 column: "TripId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Stop");
+                name: "Stops");
 
             migrationBuilder.DropTable(
-                name: "Trip");
+                name: "Trips");
         }
     }
 }

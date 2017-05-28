@@ -14,11 +14,12 @@
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-
-    },    "Microsoft.NETCore.App": {
-        "version": "1.0.1",
-        "type": "platform"
-      }
+    },
+    "Microsoft.NETCore.App": {
+      "version": "1.0.1",
+      "type": "platform"
+    },
+    "Microsoft.Extensions.Logging.Debug": "1.0.0"
     },
 
   "tools": {
